@@ -7,7 +7,8 @@ export default class Login extends React.Component {
 
     this.state = {
       emailid: "",
-      password: ""
+      password: "",
+      confirmedPassword: ""
     };
   }
 
@@ -17,8 +18,9 @@ export default class Login extends React.Component {
         <div style={{ width: "500px", margin: "auto", marginTop: "5rem" }}>
           <Form
             onSubmit={() => {
-              console.log(this.state.emailid);
-              console.log(this.state.password);
+              if (this.state.password !== this.state.confirmedPassword) {
+                alert("Passwords not equal");
+              }
             }}
           >
             <Form.Field>
@@ -44,6 +46,20 @@ export default class Login extends React.Component {
                 }}
                 type="password"
                 placeholder="Password"
+              />
+            </Form.Field>
+
+            <Form.Field>
+              <label>Confirm Password</label>
+              <input
+                ref={e => (this.confirmedPassword = e)}
+                onChange={() => {
+                  this.setState({
+                    confirmedPassword: this.confirmedPassword.value
+                  });
+                }}
+                type="password"
+                placeholder="Confirm Password"
               />
             </Form.Field>
             <Button type="submit">Submit</Button>
